@@ -64,11 +64,8 @@ void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder, const stri
 				cout << j + 1 << ". " << problems[j] << endl;
 			}
 			cout << "Choice problem: "; cin >> choice;
-			while ((choice - 1) <= 0 && (choice - 1) >= 9)
-			{
-				cout << "Please enter number between 1 and 10: ";
-				cin >> choice;
-			}
+			Choice(choice);
+			
 			strcpy_s(order[i].possibleProblem, problems[choice - 1].c_str());
 			strcpy_s(order[i].service_Technician_Name, " ");
 			strcpy_s(order[i].repair, " ");
@@ -169,9 +166,17 @@ void swap(int& a, int& b) {
 	a = b;
 	b = buff;
 }
+void Choice(int& choice) {
+	while ((choice - 1) <= 0 && (choice - 1) >= 9)
+	{
+		cout << "Please enter number between 1 and 10: ";
+		cin >> choice;
+	}
+}
 void updateOrder(Order order[], int& sizeOfOrder) {
 	int choice_Problem;
 	int choice_Repair;
+	int choice_order;
 	int numberOrder = 0;
 	cout << "Enter number of order to update: "; cin >> numberOrder;
 	if (order[numberOrder].orderNumber = numberOrder)
@@ -182,11 +187,23 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 		}
 		else
 		{
-			cout << "Problems:\n";
+			cout << "Solutions:\n";
 			for (int i = 0; i < countOfProblems_Repairs; i++)
 			{
-				cout << i + 1 << ":" << problems[i] << endl;
+				cout << i + 1 << ":" << solutions[i] << endl;
 			}
+			cout << "Enter choice: "; cin >> choice_Repair;
+			Choice(choice_Repair);
+			for (int i = 0; i < count_TypeOfOrder; i++)
+			{
+				cout<< i + 1 << ":" << typeOfOrders[i] << endl;
+			}cout << "Enter choice: "; cin >> choice_Repair;
+			Choice(choice_order);
+			if (choice_Problem == 1)
+			{
+				strcpy_s(order[numberOrder - 1].repair, solutions[choice_Repair - 1].c_str());
+			}
+			
 			fstream file;
 			file.open("file.dat", ios::binary | ios::out);
 			if (file.is_open())
