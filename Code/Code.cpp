@@ -169,20 +169,22 @@ void swap(int& a, int& b) {
 	a = b;
 	b = buff;
 }
-void updateOrder(Order order[],int& sizeOfOrder) {
-	
+void updateOrder(Order order[], int& sizeOfOrder) {
 	int numberOrder = 0;
 	cout << "Enter number of order to update: "; cin >> numberOrder;
 	if (order[numberOrder].orderNumber = numberOrder)
 	{
-		
-		if (strcmp(order[numberOrder].status_Order,"finished") == 0)
+
+		if (strcmp(order[numberOrder].status_Order, "finished") == 0)
 		{
 			cout << "You couldn't update order !\n";
 		}
 		else
 		{
-
+			for (int i = 0; i < countOfProblems_Repairs; i++)
+			{
+				cout << i + 1 << ":" << problems[i] << endl;
+			}
 			fstream file;
 			file.open("file.dat", ios::binary | ios::out);
 			if (file.is_open())
