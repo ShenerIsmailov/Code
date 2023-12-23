@@ -170,17 +170,19 @@ void swap(int& a, int& b) {
 	b = buff;
 }
 void updateOrder(Order order[], int& sizeOfOrder) {
+	int choice_Problem;
+	int choice_Repair;
 	int numberOrder = 0;
 	cout << "Enter number of order to update: "; cin >> numberOrder;
 	if (order[numberOrder].orderNumber = numberOrder)
 	{
-
 		if (strcmp(order[numberOrder].status_Order, "finished") == 0)
 		{
 			cout << "You couldn't update order !\n";
 		}
 		else
 		{
+			cout << "Problems:\n";
 			for (int i = 0; i < countOfProblems_Repairs; i++)
 			{
 				cout << i + 1 << ":" << problems[i] << endl;
