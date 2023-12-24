@@ -164,7 +164,7 @@ void sort_arrayByDay(Order order[], const int& sizeOfOrder) {
 		}
 	}
 }
-//Функция за 
+//Функция за преместване на дании от една променлива в друга
 void swap(int& a, int& b) {
 	int buff = 0;
 	buff = a;
@@ -206,6 +206,24 @@ void Separating_returned_orders_by_technician(Order order[], Order returned_orde
 		cout << setw(30) << "Order type" << setw(75) << order[i].type_Order << endl;
 		cout << "\n";
 	}
+}
+void Separating_returned_orders_by_problem(Order order[],Order returned_order_arr_byProblem[],int& sizeOfOrder) {
+	int countReturned_orders = 0;
+	char problem[20] = " ";
+	cin.ignore();cout << "Enter technician name: ";
+	cin.getline(problem, sizeof(problem));
+	for (int i = 0; i < sizeOfOrder; i++)
+	{
+		if (strcmp(order[i].status_Order, "returned") == 0) {
+
+			if (strcmp(order[i].service_Technician_Name, problem) == 0)
+			{
+				returned_order_arr_byProblem[i] = order[i];
+				countReturned_orders++;
+			}
+		}
+	}
+	sort_arrayByDay(returned_order_arr_byProblem, countReturned_orders);
 }
 void updateOrder(Order order[], int& sizeOfOrder) {
 	int choice_repair;
@@ -361,8 +379,8 @@ int main()
 					system("cls");
 					break;
 				case 'b':
-					Order returned_order_arr[SizeOfArray_Struct];
-					Separating_returned_orders_by_technician(order, returned_order_arr, sizeOfOrder);
+					Order returned_order_arr_technician[SizeOfArray_Struct];
+					Separating_returned_orders_by_technician(order, returned_order_arr_technician, sizeOfOrder);
 					system("pause");
 					system("cls");
 					//предавам и двата масива
@@ -374,6 +392,10 @@ int main()
 					//запазване в текстов файл
 					break;
 				case 'c':
+					Order returned_order_arr_byProblem[SizeOfArray_Struct];
+					Separating_returned_orders_by_problem(order, returned_order_arr_byProblem, sizeOfOrder);
+					system("pause");
+					system("cls");
 					break;
 				}
 				break;
