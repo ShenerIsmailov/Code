@@ -8,7 +8,7 @@ using namespace std;
 const int SizeOfArray_Struct = 100;
 const int countOfProblems_Repairs = 10;
 const int count_TypeOfOrder = 3;
-const int priceOfRepairs[countOfProblems_Repairs] = { 20,25,30,10,60,10,32,50,15 };
+const int priceOfRepairs[countOfProblems_Repairs] = { 20,17,25,30,10,60,10,32,50,15 };
 const int service_days[] = { 2,5,10 };
 const string problems[countOfProblems_Repairs] = { "Dusty device", "Black screen on device when start","High tempreture while device is on load",
 				"Slow startup", "Viruses in device","Broken screen", "The device doesn't charge",
@@ -43,6 +43,15 @@ bool isFill(const int& SizeOfArray_Struct, int& n, int& sum) {
 	}
 	return true;
 }
+void Choice(int& choice) {
+	cout << "Enter choice: ";
+	cin >> choice;
+	while ((choice - 1) <= 0 && (choice - 1) >= 9)
+	{
+		cout << "Please enter number between 1 and 10: ";
+		cin >> choice;
+	}
+}
 //функция за въвеждане на поръчки в масив
 void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder, const string problems[]) {
 	int choice;
@@ -64,9 +73,7 @@ void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder, const stri
 			{
 				cout << j + 1 << "." << problems[j] << endl;
 			}
-			cout << "Choice problem: "; cin >> choice;
 			Choice(choice);
-			
 			strcpy_s(order[i].possibleProblem, problems[choice - 1].c_str());
 			strcpy_s(order[i].service_Technician_Name, " ");
 			strcpy_s(order[i].repair, " ");
@@ -94,7 +101,7 @@ void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder, const stri
 //Функция за извеждане на всички поръчки от масива
 void printAllOrders(Order order[], int& sizeOfOrder) {
 	system("cls");
-	if (sizeOfOrder == 0) cout << "No orders found!";
+	if (sizeOfOrder == 0) cout << "No orders found!\n";
 	else
 	{
 		cout << "Orders" << endl;
@@ -167,15 +174,7 @@ void swap(int& a, int& b) {
 	a = b;
 	b = buff;
 }
-void Choice(int& choice) {
-	cout << "Enter choice: ";
-	cin >> choice;
-	while ((choice - 1) <= 0 && (choice - 1) >= 9)
-	{
-		cout << "Please enter number between 1 and 10: ";
-		cin >> choice;
-	}
-}
+
 void updateOrder(Order order[], int& sizeOfOrder) {
 	int choice_repair;
 	int choice;
@@ -189,6 +188,8 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 		}
 		else
 		{
+			cout << "Enter technician name :";
+			cin.getline(order[numberOrder - 1].service_Technician_Name, sizeof(order[numberOrder - 1].service_Technician_Name));
 			cout << "Solutions:\n";
 			for (int i = 0; i < countOfProblems_Repairs; i++)
 			{
@@ -211,16 +212,14 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 			if (choice == 1)
 			{
 				order[numberOrder - 1].price = priceOfRepairs[choice - 1] + (priceOfRepairs[choice - 1] * 0.5);
-				order[numberOrder - 1].stay_Time = service_days[choice - 1];
 			}
 			else if (choice == 2) {
 				order[numberOrder - 1].price = priceOfRepairs[choice - 1] + (priceOfRepairs[choice - 1] * 0.2);
-				order[numberOrder - 1].stay_Time = service_days[choice - 1];
 			}
 			else {
 				order[numberOrder - 1].price = priceOfRepairs[choice - 1];
-				order[numberOrder - 1].stay_Time = service_days[choice - 1];
 			}
+			order[numberOrder - 1].stay_Time = service_days[choice - 1];
 			strcpy_s(order[numberOrder - 1].status_Order, "finished");
 
 			fstream file;
