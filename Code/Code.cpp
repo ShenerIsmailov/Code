@@ -46,7 +46,7 @@ bool isFill(const int& SizeOfArray_Struct, int& n, int& sum) {
 void Choice(int& choice) {
 	cout << "Enter choice: ";
 	cin >> choice;
-	while ((choice - 1) <= 1 || (choice - 1) >= 9)
+	while ((choice - 1) < 0 || (choice - 1) > 9)
 	{
 		cout << "Please enter number between 1 and 10: ";
 		cin >> choice;
@@ -91,7 +91,7 @@ void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder, const stri
 	sizeOfOrder += n;
 }
 
-void table(Order order[],int& i) {
+void table(Order order[], int& i) {
 	cout << '-' << setfill('-') << setw(40) << '-' << setfill(' ') << endl;
 	cout << left << setw(30) << "Order number" << setw(70) << order[i].orderNumber << endl;
 	cout << setw(30) << "Day of mounth" << setw(70) << order[i].dayOfMounth << endl;
@@ -105,6 +105,7 @@ void table(Order order[],int& i) {
 	cout << setw(30) << "Days of servicer" << setw(75) << order[i].stay_Time << endl;
 	cout << setw(30) << "Order status" << setw(75) << order[i].status_Order << endl;
 	cout << setw(30) << "Order type" << setw(75) << order[i].type_Order << endl;
+	cout << "\n";
 }
 //Функция за извеждане на всички поръчки от масива
 void printAllOrders(Order order[], int& sizeOfOrder) {
@@ -130,9 +131,7 @@ void search_DisplayByType_Device(Order order[], const int& sizeOfОrder) {
 		if (order[i].device_Type == type_Device)
 		{
 			table(order, i);
-			cout << "\n";
 		}
-		else cout << "This order couldn't be found !\n";
 	}
 }
 
@@ -146,9 +145,7 @@ void search_DisplayBy_status(Order order[], const int& sizeOfОrder) {
 		if (order[i].status_Order == status)
 		{
 			table(order, i);
-			cout << "\n";
 		}
-		else cout << "This order couldn't be found !\n";
 	}
 }
 //Функция за сортиране във възходящ ред
@@ -175,6 +172,41 @@ void swap(int& a, int& b) {
 	b = buff;
 }
 
+void Separating_returned_orders_by_technician(Order order[], Order returned_order_arr[], int& sizeOfOrder) {
+	int countReturned_orders = 0;
+	char technician_name[20] = " ";
+	cin.ignore();cout << "Enter technician name: ";
+	cin.getline(technician_name, sizeof(technician_name));
+	for (int i = 0; i < sizeOfOrder; i++)
+	{
+		if (strcmp(order[i].status_Order, "returned") == 0) {
+			
+			if (strcmp(order[i].service_Technician_Name, technician_name) == 0)
+			{
+				returned_order_arr[i] = order[i];
+				countReturned_orders++;
+			}
+		}
+	}
+	sort_arrayByDay(returned_order_arr, countReturned_orders);
+	for (int i = 0; i < countReturned_orders; i++)
+	{
+		cout << '-' << setfill('-') << setw(40) << '-' << setfill(' ') << endl;
+		cout << left << setw(30) << "Order number" << setw(70) << order[i].orderNumber << endl;
+		cout << setw(30) << "Day of mounth" << setw(70) << order[i].dayOfMounth << endl;
+		cout << setw(30) << "Client name" << setw(70) << order[i].clientName << endl;
+		cout << setw(30) << "Type of device" << setw(70) << order[i].device_Type << endl;
+		cout << setw(30) << "Serial number of device" << setw(75) << order[i].serialNumberOfDevice << endl;
+		cout << setw(30) << "Problem with a device" << setw(75) << order[i].possibleProblem << endl;
+		cout << setw(30) << "Name of service technician" << setw(75) << order[i].service_Technician_Name << endl;
+		cout << setw(30) << "Repair" << setw(75) << order[i].repair << endl;
+		cout << setw(30) << "Price of repair" << setw(75) << order[i].price << endl;
+		cout << setw(30) << "Days of servicer" << setw(75) << order[i].stay_Time << endl;
+		cout << setw(30) << "Order status" << setw(75) << order[i].status_Order << endl;
+		cout << setw(30) << "Order type" << setw(75) << order[i].type_Order << endl;
+		cout << "\n";
+	}
+}
 void updateOrder(Order order[], int& sizeOfOrder) {
 	int choice_repair;
 	int choice;
@@ -204,7 +236,7 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 			}
 			cout << "Enter choice: ";
 			cin >> choice;
-			while ((choice - 1) <= 1 || (choice - 1) >= 3)
+			while ((choice - 1) < 0 || (choice - 1) > 3)
 			{
 				cout << "Please enter number between 1 and 3: ";
 				cin >> choice;
@@ -328,7 +360,12 @@ int main()
 					system("pause");
 					system("cls");
 					break;
-				case 'b'://предавам и двата масива
+				case 'b':
+					Order returned_order_arr[SizeOfArray_Struct];
+					Separating_returned_orders_by_technician(order, returned_order_arr, sizeOfOrder);
+					system("pause");
+					system("cls");
+					//предавам и двата масива
 					//създаване на масив 
 					//въвеждане на име на техник
 					//търсене
