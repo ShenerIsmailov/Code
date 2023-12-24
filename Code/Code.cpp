@@ -46,7 +46,7 @@ bool isFill(const int& SizeOfArray_Struct, int& n, int& sum) {
 void Choice(int& choice) {
 	cout << "Enter choice: ";
 	cin >> choice;
-	while ((choice - 1) <= 1 && (choice - 1) >= 9)
+	while ((choice - 1) <= 1 || (choice - 1) >= 9)
 	{
 		cout << "Please enter number between 1 and 10: ";
 		cin >> choice;
@@ -68,7 +68,7 @@ void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder, const stri
 			cout << "Enter client name: "; cin.getline(order[i].clientName, sizeof(order[i].clientName));
 			cout << "Enter type of device: "; cin.getline(order[i].device_Type, sizeof(order[i].device_Type));
 			cout << "Enter a serial number of device: "; cin.getline(order[i].serialNumberOfDevice, sizeof(order[i].serialNumberOfDevice));
-			cout << "Problem that you might have with a device\n";
+			cout << "Problem that you might have with a device:\n";
 			for (int j = 0; j < countOfProblems_Repairs; j++)
 			{
 				cout << j + 1 << "." << problems[j] << endl;
@@ -182,13 +182,14 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 	cout << "Enter number of order to update: "; cin >> numberOrder;
 	if (order[numberOrder].orderNumber = numberOrder)
 	{
-		if (strcmp(order[numberOrder].status_Order, "finished") == 0)
+		if (strcmp(order[numberOrder - 1].status_Order, "finished") == 0)
 		{
 			cout << "You couldn't update order !\n";
 		}
 		else
 		{
-			cout << "Enter technician name :";
+			cout << "Enter technician name: ";
+			cin.ignore();
 			cin.getline(order[numberOrder - 1].service_Technician_Name, sizeof(order[numberOrder - 1].service_Technician_Name));
 			cout << "Solutions:\n";
 			for (int i = 0; i < countOfProblems_Repairs; i++)
@@ -199,11 +200,11 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 			strcpy_s(order[numberOrder - 1].repair, solutions[choice_repair - 1].c_str());
 			for (int i = 0; i < count_TypeOfOrder; i++)
 			{
-				cout<< i + 1 << "." << typeOfOrders[i] << endl;
+				cout << i + 1 << "." << typeOfOrders[i] << endl;
 			}
 			cout << "Enter choice: ";
 			cin >> choice;
-			while ((choice - 1) <= 1 && (choice - 1) >= 3)
+			while ((choice - 1) <= 1 || (choice - 1) >= 3)
 			{
 				cout << "Please enter number between 1 and 3: ";
 				cin >> choice;
