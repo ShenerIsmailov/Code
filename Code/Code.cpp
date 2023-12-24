@@ -92,20 +92,20 @@ void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder, const stri
 }
 
 void table(Order order[], int& i) {
-	cout << '-' << setfill('-') << setw(40) << '-' << setfill(' ') << endl;
-	cout << left << setw(30) << "Order number" << setw(70) << order[i].orderNumber << endl;
-	cout << setw(30) << "Day of mounth" << setw(70) << order[i].dayOfMounth << endl;
-	cout << setw(30) << "Client name" << setw(70) << order[i].clientName << endl;
-	cout << setw(30) << "Type of device" << setw(70) << order[i].type_Device << endl;
-	cout << setw(30) << "Serial number of device" << setw(75) << order[i].serialNumberOfDevice << endl;
-	cout << setw(30) << "Problem with a device" << setw(75) << order[i].possibleProblem << endl;
-	cout << setw(30) << "Name of service technician" << setw(75) << order[i].service_Technician_Name << endl;
-	cout << setw(30) << "Repair" << setw(75) << order[i].repair << endl;
-	cout << setw(30) << "Price of repair" << setw(75) << order[i].price << endl;
-	cout << setw(30) << "Days of servicer" << setw(75) << order[i].stay_Time << endl;
-	cout << setw(30) << "Order status" << setw(75) << order[i].status_Order << endl;
-	cout << setw(30) << "Order type" << setw(75) << order[i].type_Order << endl;
-	cout << "\n";
+	cout << left << setw(30) << "Order number" << "| " << setw(48) << order[i].orderNumber << "|" << endl;
+	cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
+	cout << setw(30) << "Day of mounth" << "| " << setw(48) << order[i].dayOfMounth << "|" << endl;
+	cout << setw(30) << "Client name" << "| " << setw(48) << order[i].clientName << "|" << endl;
+	cout << setw(30) << "Type of device" << "| " << setw(48) << order[i].type_Device << "|" << endl;
+	cout << setw(30) << "Serial number of device" << "| " << setw(48) << order[i].serialNumberOfDevice << "|" << endl;
+	cout << setw(30) << "Problem with a device" << "| " << setw(48) << order[i].possibleProblem << "|" << endl;
+	cout << setw(30) << "Name of service technician" << "| " << setw(48) << order[i].service_Technician_Name << "|" << endl;
+	cout << setw(30) << "Repair" << "| " << setw(48) << order[i].repair << "|" << endl;
+	cout << setw(30) << "Price of repair" << "| " << setw(2) << order[i].price << setw(46) << " lv" << "|" << endl;
+	cout << setw(30) << "Days of servicer" << "| " << setw(2) << order[i].stay_Time << setw(46) << "days" << "|" << endl;
+	cout << setw(30) << "Order status" << "| " << setw(10) << setw(48) << order[i].status_Order << "|" << endl;
+	cout << setw(30) << "Order type" << "| " << setw(10) << setw(48) << order[i].type_Order << "|" << endl;
+	cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
 }
 //Функция за извеждане на всички поръчки от масива
 void printAllOrders(Order order[], int& sizeOfOrder) {
@@ -114,6 +114,7 @@ void printAllOrders(Order order[], int& sizeOfOrder) {
 	else
 	{
 		cout << "Orders" << endl;
+		cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
 		for (int i = 0; i < sizeOfOrder; i++) {
 			table(order, i);
 		}
@@ -191,19 +192,20 @@ void Separating_returned_orders_by_technician(Order order[], Order returned_orde
 	sort_arrayByDay(returned_order_arr, countReturned_orders);
 	for (int i = 0; i < countReturned_orders; i++)
 	{
-		cout << '-' << setfill('-') << setw(40) << '-' << setfill(' ') << endl;
-		cout << left << setw(30) << "Order number" << setw(70) << order[i].orderNumber << endl;
-		cout << setw(30) << "Day of mounth" << setw(70) << order[i].dayOfMounth << endl;
-		cout << setw(30) << "Client name" << setw(70) << order[i].clientName << endl;
-		cout << setw(30) << "Type of device" << setw(70) << order[i].type_Device << endl;
-		cout << setw(30) << "Serial number of device" << setw(75) << order[i].serialNumberOfDevice << endl;
-		cout << setw(30) << "Problem with a device" << setw(75) << order[i].possibleProblem << endl;
-		cout << setw(30) << "Name of service technician" << setw(75) << order[i].service_Technician_Name << endl;
-		cout << setw(30) << "Repair" << setw(75) << order[i].repair << endl;
-		cout << setw(30) << "Price of repair" << setw(75) << order[i].price << endl;
-		cout << setw(30) << "Days of servicer" << setw(75) << order[i].stay_Time << endl;
-		cout << setw(30) << "Order status" << setw(75) << order[i].status_Order << endl;
-		cout << setw(30) << "Order type" << setw(75) << order[i].type_Order << endl;
+		cout << left << setw(30) << "Order number" << "| " << setw(48) << order[i].orderNumber << "|" << endl;
+		cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
+		cout << setw(30) << "Day of mounth" << "| " << setw(48) << order[i].dayOfMounth << "|" << endl;
+		cout << setw(30) << "Client name" << "| " << setw(48) << order[i].clientName << "|" << endl;
+		cout << setw(30) << "Type of device" << "| " << setw(48) << order[i].type_Device << "|" << endl;
+		cout << setw(30) << "Serial number of device" << "| " << setw(48) << order[i].serialNumberOfDevice << "|" << endl;
+		cout << setw(30) << "Problem with a device" << "| " << setw(48) << order[i].possibleProblem << "|" << endl;
+		cout << setw(30) << "Name of service technician" << "| " << setw(48) << order[i].service_Technician_Name << "|" << endl;
+		cout << setw(30) << "Repair" << "| " << setw(48) << order[i].repair << "|" << endl;
+		cout << setw(30) << "Price of repair" << "| " << setw(2) << order[i].price << setw(46) << " lv" << "|" << endl;
+		cout << setw(30) << "Days of servicer" << "| " << setw(2) << order[i].stay_Time << setw(46) << "days" << "|" << endl;
+		cout << setw(30) << "Order status" << "| " << setw(10) << setw(48) << order[i].status_Order << "|" << endl;
+		cout << setw(30) << "Order type" << "| " << setw(10) << setw(48) << order[i].type_Order << "|" << endl;
+		cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
 		cout << "\n";
 	}
 }
@@ -239,19 +241,20 @@ void Separating_returned_orders_by_problem(Order order[], Order returned_order_a
 	sort_descendingOrder(returned_order_arr_byProblem, countReturned_orders);
 	for (int i = 0; i < countReturned_orders; i++)
 	{
-		cout << '-' << setfill('-') << setw(40) << '-' << setfill(' ') << endl;
-		cout << left << setw(30) << "Order number" << setw(70) << order[i].orderNumber << endl;
-		cout << setw(30) << "Day of mounth" << setw(70) << order[i].dayOfMounth << endl;
-		cout << setw(30) << "Client name" << setw(70) << order[i].clientName << endl;
-		cout << setw(30) << "Type of device" << setw(70) << order[i].type_Device << endl;
-		cout << setw(30) << "Serial number of device" << setw(75) << order[i].serialNumberOfDevice << endl;
-		cout << setw(30) << "Problem with a device" << setw(75) << order[i].possibleProblem << endl;
-		cout << setw(30) << "Name of service technician" << setw(75) << order[i].service_Technician_Name << endl;
-		cout << setw(30) << "Repair" << setw(75) << order[i].repair << endl;
-		cout << setw(30) << "Price of repair" << setw(75) << order[i].price << endl;
-		cout << setw(30) << "Days of servicer" << setw(75) << order[i].stay_Time << endl;
-		cout << setw(30) << "Order status" << setw(75) << order[i].status_Order << endl;
-		cout << setw(30) << "Order type" << setw(75) << order[i].type_Order << endl;
+		cout << left << setw(30) << "Order number" << "| " << setw(48) << order[i].orderNumber << "|" << endl;
+		cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
+		cout << setw(30) << "Day of mounth" << "| " << setw(48) << order[i].dayOfMounth << "|" << endl;
+		cout << setw(30) << "Client name" << "| " << setw(48) << order[i].clientName << "|" << endl;
+		cout << setw(30) << "Type of device" << "| " << setw(48) << order[i].type_Device << "|" << endl;
+		cout << setw(30) << "Serial number of device" << "| " << setw(48) << order[i].serialNumberOfDevice << "|" << endl;
+		cout << setw(30) << "Problem with a device" << "| " << setw(48) << order[i].possibleProblem << "|" << endl;
+		cout << setw(30) << "Name of service technician" << "| " << setw(48) << order[i].service_Technician_Name << "|" << endl;
+		cout << setw(30) << "Repair" << "| " << setw(48) << order[i].repair << "|" << endl;
+		cout << setw(30) << "Price of repair" << "| " << setw(2) << order[i].price << setw(46) << " lv" << "|" << endl;
+		cout << setw(30) << "Days of servicer" << "| " << setw(2) << order[i].stay_Time << setw(46) << "days" << "|" << endl;
+		cout << setw(30) << "Order status" << "| " << setw(10) << setw(48) << order[i].status_Order << "|" << endl;
+		cout << setw(30) << "Order type" << "| " << setw(10) << setw(48) << order[i].type_Order << "|" << endl;
+		cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
 		cout << "\n";
 	}
 }
