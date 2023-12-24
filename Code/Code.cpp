@@ -8,7 +8,7 @@ using namespace std;
 const int SizeOfArray_Struct = 100;
 const int countOfProblems_Repairs = 10;
 const int count_TypeOfOrder = 3;
-const int priceOfRepairs[countOfProblems_Repairs] = { 20,17,25,30,10,60,10,32,50,15 };
+const float priceOfRepairs[countOfProblems_Repairs] = { 20,17,25,30,10,60,10,32,50,15 };
 const int service_days[] = { 2,5,10 };
 const string problems[countOfProblems_Repairs] = { "Dusty device", "Black screen on device when start","High tempreture while device is on load",
 				"Slow startup", "Viruses in device","Broken screen", "The device doesn't charge",
@@ -46,7 +46,7 @@ bool isFill(const int& SizeOfArray_Struct, int& n, int& sum) {
 void Choice(int& choice) {
 	cout << "Enter choice: ";
 	cin >> choice;
-	while ((choice - 1) <= 0 && (choice - 1) >= 9)
+	while ((choice - 1) <= 1 && (choice - 1) >= 9)
 	{
 		cout << "Please enter number between 1 and 10: ";
 		cin >> choice;
@@ -203,7 +203,7 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 			}
 			cout << "Enter choice: ";
 			cin >> choice;
-			while ((choice - 1) <= 0 && (choice - 1) >= 2)
+			while ((choice - 1) <= 1 && (choice - 1) >= 3)
 			{
 				cout << "Please enter number between 1 and 3: ";
 				cin >> choice;
@@ -211,13 +211,13 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 			strcpy_s(order[numberOrder - 1].type_Order, typeOfOrders[choice - 1].c_str());
 			if (choice == 1)
 			{
-				order[numberOrder - 1].price = priceOfRepairs[choice - 1] + (priceOfRepairs[choice - 1] * 0.5);
+				order[numberOrder - 1].price = priceOfRepairs[choice_repair - 1] + (priceOfRepairs[choice_repair - 1] * 0.5);
 			}
 			else if (choice == 2) {
-				order[numberOrder - 1].price = priceOfRepairs[choice - 1] + (priceOfRepairs[choice - 1] * 0.2);
+				order[numberOrder - 1].price = priceOfRepairs[choice_repair - 1] + (priceOfRepairs[choice_repair - 1] * 0.2);
 			}
 			else {
-				order[numberOrder - 1].price = priceOfRepairs[choice - 1];
+				order[numberOrder - 1].price = priceOfRepairs[choice_repair - 1];
 			}
 			order[numberOrder - 1].stay_Time = service_days[choice - 1];
 			strcpy_s(order[numberOrder - 1].status_Order, "finished");
