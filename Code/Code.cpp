@@ -23,7 +23,7 @@ struct Order {
 	int orderNumber;
 	int dayOfMounth;
 	char clientName[20];
-	char device_Type[15];
+	char type_Device[15];
 	char serialNumberOfDevice[30];
 	char possibleProblem[50];
 	char service_Technician_Name[20];
@@ -66,7 +66,7 @@ void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder, const stri
 			cout << "Enter day of mounth: "; cin >> order[i].dayOfMounth;
 			cin.ignore();
 			cout << "Enter client name: "; cin.getline(order[i].clientName, sizeof(order[i].clientName));
-			cout << "Enter type of device: "; cin.getline(order[i].device_Type, sizeof(order[i].device_Type));
+			cout << "Enter type of device: "; cin.getline(order[i].type_Device, sizeof(order[i].type_Device));
 			cout << "Enter a serial number of device: "; cin.getline(order[i].serialNumberOfDevice, sizeof(order[i].serialNumberOfDevice));
 			cout << "Problem that you might have with a device:\n";
 			for (int j = 0; j < countOfProblems_Repairs; j++)
@@ -96,7 +96,7 @@ void table(Order order[], int& i) {
 	cout << left << setw(30) << "Order number" << setw(70) << order[i].orderNumber << endl;
 	cout << setw(30) << "Day of mounth" << setw(70) << order[i].dayOfMounth << endl;
 	cout << setw(30) << "Client name" << setw(70) << order[i].clientName << endl;
-	cout << setw(30) << "Type of device" << setw(70) << order[i].device_Type << endl;
+	cout << setw(30) << "Type of device" << setw(70) << order[i].type_Device << endl;
 	cout << setw(30) << "Serial number of device" << setw(75) << order[i].serialNumberOfDevice << endl;
 	cout << setw(30) << "Problem with a device" << setw(75) << order[i].possibleProblem << endl;
 	cout << setw(30) << "Name of service technician" << setw(75) << order[i].service_Technician_Name << endl;
@@ -128,7 +128,7 @@ void search_DisplayByType_Device(Order order[], const int& sizeOfОrder) {
 	getline(cin, type_Device);
 	for (int i = 0; i < sizeOfОrder; i++)
 	{
-		if (order[i].device_Type == type_Device)
+		if (order[i].type_Device == type_Device)
 		{
 			table(order, i);
 		}
@@ -180,7 +180,7 @@ void Separating_returned_orders_by_technician(Order order[], Order returned_orde
 	for (int i = 0; i < sizeOfOrder; i++)
 	{
 		if (strcmp(order[i].status_Order, "returned") == 0) {
-			
+
 			if (strcmp(order[i].service_Technician_Name, technician_name) == 0)
 			{
 				returned_order_arr[i] = order[i];
@@ -195,7 +195,7 @@ void Separating_returned_orders_by_technician(Order order[], Order returned_orde
 		cout << left << setw(30) << "Order number" << setw(70) << order[i].orderNumber << endl;
 		cout << setw(30) << "Day of mounth" << setw(70) << order[i].dayOfMounth << endl;
 		cout << setw(30) << "Client name" << setw(70) << order[i].clientName << endl;
-		cout << setw(30) << "Type of device" << setw(70) << order[i].device_Type << endl;
+		cout << setw(30) << "Type of device" << setw(70) << order[i].type_Device << endl;
 		cout << setw(30) << "Serial number of device" << setw(75) << order[i].serialNumberOfDevice << endl;
 		cout << setw(30) << "Problem with a device" << setw(75) << order[i].possibleProblem << endl;
 		cout << setw(30) << "Name of service technician" << setw(75) << order[i].service_Technician_Name << endl;
@@ -207,23 +207,53 @@ void Separating_returned_orders_by_technician(Order order[], Order returned_orde
 		cout << "\n";
 	}
 }
-void Separating_returned_orders_by_problem(Order order[],Order returned_order_arr_byProblem[],int& sizeOfOrder) {
-	int countReturned_orders = 0;
-	char problem[20] = " ";
-	cin.ignore();cout << "Enter technician name: ";
-	cin.getline(problem, sizeof(problem));
+
+void sort_descendingOrder(Order order[], int& sizeOfOrder) {
+	bool flag = true;
 	for (int i = 0; i < sizeOfOrder; i++)
 	{
-		if (strcmp(order[i].status_Order, "returned") == 0) {
-
-			if (strcmp(order[i].service_Technician_Name, problem) == 0)
+		if (flag == false)break; else flag = false;
+		for (int j = sizeOfOrder - 1; j > i; j--)
+		{
+			if (order[j].dayOfMounth > order[j + 1].dayOfMounth)
 			{
-				returned_order_arr_byProblem[i] = order[i];
-				countReturned_orders++;
+				swap(order[j], order[j + 1]);
+				flag = true;
 			}
 		}
 	}
-	sort_arrayByDay(returned_order_arr_byProblem, countReturned_orders);
+}
+void Separating_returned_orders_by_problem(Order order[], Order returned_order_arr_byProblem[], int& sizeOfOrder) {
+	int countReturned_orders = 0;
+	char device[20] = " ";
+	cin.ignore();cout << "Enter device name: ";
+	cin.getline(device, sizeof(device));
+	for (int i = 0; i < sizeOfOrder; i++)
+	{
+		if (strcmp(order[i].type_Device, device) == 0)
+		{
+			returned_order_arr_byProblem[i] = order[i];
+			countReturned_orders++;
+		}
+	}
+	sort_descendingOrder(returned_order_arr_byProblem, countReturned_orders);
+	for (int i = 0; i < countReturned_orders; i++)
+	{
+		cout << '-' << setfill('-') << setw(40) << '-' << setfill(' ') << endl;
+		cout << left << setw(30) << "Order number" << setw(70) << order[i].orderNumber << endl;
+		cout << setw(30) << "Day of mounth" << setw(70) << order[i].dayOfMounth << endl;
+		cout << setw(30) << "Client name" << setw(70) << order[i].clientName << endl;
+		cout << setw(30) << "Type of device" << setw(70) << order[i].type_Device << endl;
+		cout << setw(30) << "Serial number of device" << setw(75) << order[i].serialNumberOfDevice << endl;
+		cout << setw(30) << "Problem with a device" << setw(75) << order[i].possibleProblem << endl;
+		cout << setw(30) << "Name of service technician" << setw(75) << order[i].service_Technician_Name << endl;
+		cout << setw(30) << "Repair" << setw(75) << order[i].repair << endl;
+		cout << setw(30) << "Price of repair" << setw(75) << order[i].price << endl;
+		cout << setw(30) << "Days of servicer" << setw(75) << order[i].stay_Time << endl;
+		cout << setw(30) << "Order status" << setw(75) << order[i].status_Order << endl;
+		cout << setw(30) << "Order type" << setw(75) << order[i].type_Order << endl;
+		cout << "\n";
+	}
 }
 void updateOrder(Order order[], int& sizeOfOrder) {
 	int choice_repair;
