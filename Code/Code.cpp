@@ -91,13 +91,21 @@ void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder, const stri
 	sizeOfOrder += n;
 }
 
-//bool isInArray(Order order[], int& sizeOfOrder, int& numberOrder) {
-//	for (int j = 0; j < sizeOfOrder; j++)
-//	{
-//		if (order[j].orderNumber = numberOrder)return true;
-//		else return false;
-//	}
-//}
+void table(Order order[],int& i) {
+	cout << '-' << setfill('-') << setw(40) << '-' << setfill(' ') << endl;
+	cout << left << setw(30) << "Order number" << setw(70) << order[i].orderNumber << endl;
+	cout << setw(30) << "Day of mounth" << setw(70) << order[i].dayOfMounth << endl;
+	cout << setw(30) << "Client name" << setw(70) << order[i].clientName << endl;
+	cout << setw(30) << "Type of device" << setw(70) << order[i].device_Type << endl;
+	cout << setw(30) << "Serial number of device" << setw(75) << order[i].serialNumberOfDevice << endl;
+	cout << setw(30) << "Problem with a device" << setw(75) << order[i].possibleProblem << endl;
+	cout << setw(30) << "Name of service technician" << setw(75) << order[i].service_Technician_Name << endl;
+	cout << setw(30) << "Repair" << setw(75) << order[i].repair << endl;
+	cout << setw(30) << "Price of repair" << setw(75) << order[i].price << endl;
+	cout << setw(30) << "Days of servicer" << setw(75) << order[i].stay_Time << endl;
+	cout << setw(30) << "Order status" << setw(75) << order[i].status_Order << endl;
+	cout << setw(30) << "Order type" << setw(75) << order[i].type_Order << endl;
+}
 //Функция за извеждане на всички поръчки от масива
 void printAllOrders(Order order[], int& sizeOfOrder) {
 	system("cls");
@@ -106,19 +114,7 @@ void printAllOrders(Order order[], int& sizeOfOrder) {
 	{
 		cout << "Orders" << endl;
 		for (int i = 0; i < sizeOfOrder; i++) {
-			cout << '-' << setfill('-') << setw(40) << '-' << setfill(' ') << endl;
-			cout << left << setw(30) << "Order number" << setw(70) << order[i].orderNumber << endl;
-			cout << setw(30) << "Day of mounth" << setw(70) << order[i].dayOfMounth << endl;
-			cout << setw(30) << "Client name" << setw(70) << order[i].clientName << endl;
-			cout << setw(30) << "Type of device" << setw(70) << order[i].device_Type << endl;
-			cout << setw(30) << "Serial number of device" << setw(75) << order[i].serialNumberOfDevice << endl;
-			cout << setw(30) << "Problem with a device" << setw(75) << order[i].possibleProblem << endl;
-			cout << setw(30) << "Name of service technician" << setw(75) << order[i].service_Technician_Name << endl;
-			cout << setw(30) << "Repair" << setw(75) << order[i].repair << endl;
-			cout << setw(30) << "Price of repair" << setw(75) << order[i].price << endl;
-			cout << setw(30) << "Days of servicer" << setw(75) << order[i].stay_Time << endl;
-			cout << setw(30) << "Order status" << setw(75) << order[i].status_Order << endl;
-			cout << setw(30) << "Order type" << setw(75) << order[i].type_Order << endl;
+			table(order, i);
 		}
 		cout << "\n";
 	}
@@ -126,29 +122,33 @@ void printAllOrders(Order order[], int& sizeOfOrder) {
 //Фунцкия за търсене и извеждане на устройства по вид
 void search_DisplayByType_Device(Order order[], const int& sizeOfОrder) {
 	string type_Device = " ";
-	cout << "Enter type device: "; cin >> type_Device;
+	cout << "Enter type device: ";
+	cin.ignore();
+	getline(cin, type_Device);
 	for (int i = 0; i < sizeOfОrder; i++)
 	{
 		if (order[i].device_Type == type_Device)
 		{
-			for (int i = 0; i < sizeOfОrder; i++) {
-				cout << '-' << setfill('-') << setw(40) << '-' << setfill(' ') << endl;
-				cout << left << setw(30) << "Order number" << setw(70) << order[i].orderNumber << endl;
-				cout << setw(30) << "Day of mounth" << setw(70) << order[i].dayOfMounth << endl;
-				cout << setw(30) << "Client name" << setw(70) << order[i].clientName << endl;
-				cout << setw(30) << "Type of device" << setw(70) << order[i].device_Type << endl;
-				cout << setw(30) << "Serial number of device" << setw(75) << order[i].serialNumberOfDevice << endl;
-				cout << setw(30) << "Problem with a device" << setw(75) << order[i].possibleProblem << endl;
-				cout << setw(30) << "Name of service technician" << setw(75) << order[i].service_Technician_Name << endl;
-				cout << setw(30) << "Repair" << setw(75) << order[i].repair << endl;
-				cout << setw(30) << "Price of repair" << setw(75) << order[i].price << endl;
-				cout << setw(30) << "Days of servicer" << setw(75) << order[i].stay_Time << endl;
-				cout << setw(30) << "Order status" << setw(75) << order[i].status_Order << endl;
-				cout << setw(30) << "Order type" << setw(75) << order[i].type_Order << endl;
-			}
+			table(order, i);
 			cout << "\n";
 		}
-		else cout << "This type of device havent't been found!";
+		else cout << "This order couldn't be found !\n";
+	}
+}
+
+void search_DisplayBy_status(Order order[], const int& sizeOfОrder) {
+	string status = " ";
+	cout << "Enter status: ";
+	cin.ignore();
+	getline(cin, status);
+	for (int i = 0; i < sizeOfОrder; i++)
+	{
+		if (order[i].status_Order == status)
+		{
+			table(order, i);
+			cout << "\n";
+		}
+		else cout << "This order couldn't be found !\n";
 	}
 }
 //Функция за сортиране във възходящ ред
@@ -182,7 +182,7 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 	cout << "Enter number of order to update: "; cin >> numberOrder;
 	if (order[numberOrder].orderNumber = numberOrder)
 	{
-		if (strcmp(order[numberOrder - 1].status_Order, "finished") == 0)
+		if (strcmp(order[numberOrder - 1].status_Order, "returned") == 0)
 		{
 			cout << "You couldn't update order !\n";
 		}
@@ -221,8 +221,7 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 				order[numberOrder - 1].price = priceOfRepairs[choice_repair - 1];
 			}
 			order[numberOrder - 1].stay_Time = service_days[choice - 1];
-			strcpy_s(order[numberOrder - 1].status_Order, "finished");
-
+			strcpy_s(order[numberOrder - 1].status_Order, "returned");
 			fstream file;
 			file.open("file.dat", ios::binary | ios::out);
 			if (file.is_open())
@@ -306,6 +305,11 @@ int main()
 				{
 				case'a':
 					search_DisplayByType_Device(order, sizeOfOrder);
+					system("pause");
+					system("cls");
+					break;
+				case 'b':
+					search_DisplayBy_status(order, sizeOfOrder);
 					system("pause");
 					system("cls");
 					break;
