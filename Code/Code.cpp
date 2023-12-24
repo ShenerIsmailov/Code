@@ -166,7 +166,11 @@ void sort_arrayByDay(Order order[], const int& sizeOfOrder) {
 			}
 		}
 	}
-	
+	cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
+	for (int i = 0; i < sizeOfOrder; i++)
+	{
+		table(order, i);
+	}
 }
 //Функция за преместване на дании от една променлива в друга
 void swap(int& a, int& b) {
@@ -196,25 +200,21 @@ void Separating_returned_orders_by_technician(Order order[], Order returned_orde
 
 }
 
-void sort_descendingOrder(Order order[], int& sizeOfOrder) {
+void sort_descendingOrder(Order returned_order_arr_byProblem[], int& sizeOfOrder) {
 	bool flag = true;
 	for (int i = 0; i < sizeOfOrder; i++)
 	{
 		if (flag == false)break; else flag = false;
 		for (int j = sizeOfOrder - 1; j > i; j--)
 		{
-			if (order[j].dayOfMounth > order[j + 1].dayOfMounth)
+			if (returned_order_arr_byProblem[j].dayOfMounth > returned_order_arr_byProblem[j + 1].dayOfMounth)
 			{
-				swap(order[j], order[j + 1]);
+				swap(returned_order_arr_byProblem[j], returned_order_arr_byProblem[j + 1]);
 				flag = true;
 			}
 		}
 	}
-	cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
-	for (int i = 0; i < sizeOfOrder; i++)
-	{
-		table(order, i);
-	}
+	
 }
 void Separating_returned_orders_by_problem(Order order[], Order returned_order_arr_byProblem[], int& sizeOfOrder) {
 	int countReturned_orders = 0;
@@ -230,6 +230,11 @@ void Separating_returned_orders_by_problem(Order order[], Order returned_order_a
 		}
 	}
 	sort_descendingOrder(returned_order_arr_byProblem, countReturned_orders);
+	cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
+	for (int i = 0; i < sizeOfOrder; i++)
+	{
+		table(order, i);
+	}
 }
 void updateOrder(Order order[], int& sizeOfOrder) {
 	int choice_repair;
