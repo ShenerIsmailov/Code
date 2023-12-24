@@ -303,6 +303,7 @@ void writeBinaryFile(Order order[], int& sizeOfOrder) {
 	{
 		file.write(reinterpret_cast<char*>(order), sizeOfOrder * sizeof(Order));
 		file.close();
+		cout << "The data was recorded !\n";
 	}
 	else cout << "File could't be found !\n";
 }
@@ -319,6 +320,7 @@ void readBinaryFile(Order order[], int& sizeOfOrder) {
 		file.open("file.dat", ios::binary | ios::in);
 		file.read((char*)order, sizeOfOrder * (sizeof(Order)));
 		file.close();
+		cout << "The data was readed !\n";
 	}
 	else cout << "File could't be found !\n";
 }
