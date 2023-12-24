@@ -9,6 +9,7 @@ const int SizeOfArray_Struct = 100;
 const int countOfProblems_Repairs = 10;
 const int count_TypeOfOrder = 3;
 const int priceOfRepairs[countOfProblems_Repairs] = { 20,25,30,10,60,10,32,50,15 };
+const int service_days[] = { 2,5,10 };
 const string problems[countOfProblems_Repairs] = { "Dusty device", "Black screen on device when start","High tempreture while device is on load",
 				"Slow startup", "Viruses in device","Broken screen", "The device doesn't charge",
 				"Low battery life","Blue screen errors","Noisy hard drive" };
@@ -176,6 +177,7 @@ void Choice(int& choice) {
 	}
 }
 void updateOrder(Order order[], int& sizeOfOrder) {
+	int choice_repair;
 	int choice;
 	int numberOrder = 0;
 	cout << "Enter number of order to update: "; cin >> numberOrder;
@@ -192,17 +194,35 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 			{
 				cout << i + 1 << "." << solutions[i] << endl;
 			}
-			Choice(choice);
+			Choice(choice_repair);
+			strcpy_s(order[numberOrder - 1].repair, solutions[choice_repair - 1].c_str());
 			for (int i = 0; i < count_TypeOfOrder; i++)
 			{
 				cout<< i + 1 << "." << typeOfOrders[i] << endl;
 			}
-			Choice(choice);
+			cout << "Enter choice: ";
+			cin >> choice;
+			while ((choice - 1) <= 0 && (choice - 1) >= 2)
+			{
+				cout << "Please enter number between 1 and 3: ";
+				cin >> choice;
+			}
+			strcpy_s(order[numberOrder - 1].type_Order, typeOfOrders[choice - 1].c_str());
 			if (choice == 1)
 			{
-				strcpy_s(order[numberOrder - 1].repair, solutions[choice - 1].c_str());
+				order[numberOrder - 1].price = priceOfRepairs[choice - 1] + (priceOfRepairs[choice - 1] * 0.5);
+				order[numberOrder - 1].stay_Time = service_days[choice - 1];
 			}
-			
+			else if (choice == 2) {
+				order[numberOrder - 1].price = priceOfRepairs[choice - 1] + (priceOfRepairs[choice - 1] * 0.2);
+				order[numberOrder - 1].stay_Time = service_days[choice - 1];
+			}
+			else {
+				order[numberOrder - 1].price = priceOfRepairs[choice - 1];
+				order[numberOrder - 1].stay_Time = service_days[choice - 1];
+			}
+			strcpy_s(order[numberOrder - 1].status_Order, "finished");
+
 			fstream file;
 			file.open("file.dat", ios::binary | ios::out);
 			if (file.is_open())
@@ -331,7 +351,7 @@ int main()
 					break;
 				}
 				break;
-			case 6:
+			case 6:updateOrder(order, sizeOfOrder);
 				break;
 			case 7:
 				writeBinaryFile(order, sizeOfOrder);
