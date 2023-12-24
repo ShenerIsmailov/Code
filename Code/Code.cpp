@@ -77,7 +77,7 @@ void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder, const stri
 			strcpy_s(order[i].possibleProblem, problems[choice - 1].c_str());
 			strcpy_s(order[i].service_Technician_Name, " ");
 			strcpy_s(order[i].repair, " ");
-			order[i].price = 0.0;
+			order[i].price = 0.00;
 			order[i].stay_Time = 0;
 			strcpy_s(order[i].status_Order, "accepted");
 			strcpy_s(order[i].type_Order, " ");
@@ -101,9 +101,9 @@ void table(Order order[], int& i) {
 	cout << setw(30) << "Problem with a device" << "| " << setw(48) << order[i].possibleProblem << "|" << endl;
 	cout << setw(30) << "Name of service technician" << "| " << setw(48) << order[i].service_Technician_Name << "|" << endl;
 	cout << setw(30) << "Repair" << "| " << setw(48) << order[i].repair << "|" << endl;
-	cout << setw(30) << "Price of repair" << "| " << setw(2) << order[i].price << setw(46) << " lv" << "|" << endl;
+	cout << setw(30) << "Price of repair" << "| " << setw(2) << fixed << setprecision(2) << order[i].price << setw(43) << " lv" << "|" << endl;
 	cout << setw(30) << "Days of servicer" << "| " << setw(2) << order[i].stay_Time << setw(46) << "days" << "|" << endl;
-	cout << setw(30) << "Order status" << "| " << setw(10) << setw(48) << order[i].status_Order << "|" << endl;
+	cout << setw(30) << "Order status" << "| " << setw(10)  << setw(48)  << order[i].status_Order << "|" << endl;
 	cout << setw(30) << "Order type" << "| " << setw(10) << setw(48) << order[i].type_Order << "|" << endl;
 	cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
 
@@ -200,15 +200,15 @@ void Separating_returned_orders_by_technician(Order order[], Order returned_orde
 
 }
 
-void sort_descendingOrder(Order returned_order_arr_byProblem[], int& sizeOfOrder) {
+void sort_descendingOrder(Order order[], int& sizeOfOrder) {
 	bool flag = true;
 	for (int i = 0; i < sizeOfOrder; i++)
 	{
 		if (flag == false)break; else flag = false;
 		for (int j = sizeOfOrder - 1; j > i; j--)
 		{
-			int higher = atoi(returned_order_arr_byProblem[j].type_Device);
-			int lower = atoi(returned_order_arr_byProblem[j + 1].type_Device);
+			int higher = atoi(order[j].type_Device);
+			int lower = atoi(order[j + 1].type_Device);
 			if (higher > lower)
 			{
 				swap(higher, lower);
@@ -216,7 +216,6 @@ void sort_descendingOrder(Order returned_order_arr_byProblem[], int& sizeOfOrder
 			}
 		}
 	}
-	
 }
 void Separating_returned_orders_by_problem(Order order[], Order returned_order_arr_byProblem[], int& sizeOfOrder) {
 	int countReturned_orders = 0;
@@ -233,9 +232,9 @@ void Separating_returned_orders_by_problem(Order order[], Order returned_order_a
 	}
 	sort_descendingOrder(returned_order_arr_byProblem, countReturned_orders);
 	cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
-	for (int i = 0; i < sizeOfOrder; i++)
+	for (int i = 0; i < countReturned_orders; i++)
 	{
-		table(order, i);
+		table(returned_order_arr_byProblem, i);
 	}
 }
 void updateOrder(Order order[], int& sizeOfOrder) {
