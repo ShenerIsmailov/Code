@@ -106,6 +106,7 @@ void table(Order order[], int& i) {
 	cout << setw(30) << "Order status" << "| " << setw(10) << setw(48) << order[i].status_Order << "|" << endl;
 	cout << setw(30) << "Order type" << "| " << setw(10) << setw(48) << order[i].type_Order << "|" << endl;
 	cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
+
 }
 //Функция за извеждане на всички поръчки от масива
 void printAllOrders(Order order[], int& sizeOfOrder) {
@@ -118,7 +119,6 @@ void printAllOrders(Order order[], int& sizeOfOrder) {
 		for (int i = 0; i < sizeOfOrder; i++) {
 			table(order, i);
 		}
-		cout << "\n";
 	}
 }
 //Фунцкия за търсене и извеждане на устройства по вид
@@ -131,6 +131,7 @@ void search_DisplayByType_Device(Order order[], const int& sizeOfОrder) {
 	{
 		if (order[i].type_Device == type_Device)
 		{
+			cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
 			table(order, i);
 		}
 	}
@@ -145,6 +146,7 @@ void search_DisplayBy_status(Order order[], const int& sizeOfОrder) {
 	{
 		if (order[i].status_Order == status)
 		{
+			cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
 			table(order, i);
 		}
 	}
@@ -164,6 +166,7 @@ void sort_arrayByDay(Order order[], const int& sizeOfOrder) {
 			}
 		}
 	}
+	
 }
 //Функция за преместване на дании от една променлива в друга
 void swap(int& a, int& b) {
@@ -173,7 +176,7 @@ void swap(int& a, int& b) {
 	b = buff;
 }
 
-void Separating_returned_orders_by_technician(Order order[], Order returned_order_arr[], int& sizeOfOrder) {
+void Separating_returned_orders_by_technician(Order order[], Order returned_order_arr_technician[], int& sizeOfOrder) {
 	int countReturned_orders = 0;
 	char technician_name[20] = " ";
 	cin.ignore();cout << "Enter technician name: ";
@@ -184,30 +187,13 @@ void Separating_returned_orders_by_technician(Order order[], Order returned_orde
 
 			if (strcmp(order[i].service_Technician_Name, technician_name) == 0)
 			{
-				returned_order_arr[i] = order[i];
+				returned_order_arr_technician[i] = order[i];
 				countReturned_orders++;
 			}
 		}
 	}
-	sort_arrayByDay(returned_order_arr, countReturned_orders);
-	for (int i = 0; i < countReturned_orders; i++)
-	{
-		cout << left << setw(30) << "Order number" << "| " << setw(48) << order[i].orderNumber << "|" << endl;
-		cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
-		cout << setw(30) << "Day of mounth" << "| " << setw(48) << order[i].dayOfMounth << "|" << endl;
-		cout << setw(30) << "Client name" << "| " << setw(48) << order[i].clientName << "|" << endl;
-		cout << setw(30) << "Type of device" << "| " << setw(48) << order[i].type_Device << "|" << endl;
-		cout << setw(30) << "Serial number of device" << "| " << setw(48) << order[i].serialNumberOfDevice << "|" << endl;
-		cout << setw(30) << "Problem with a device" << "| " << setw(48) << order[i].possibleProblem << "|" << endl;
-		cout << setw(30) << "Name of service technician" << "| " << setw(48) << order[i].service_Technician_Name << "|" << endl;
-		cout << setw(30) << "Repair" << "| " << setw(48) << order[i].repair << "|" << endl;
-		cout << setw(30) << "Price of repair" << "| " << setw(2) << order[i].price << setw(46) << " lv" << "|" << endl;
-		cout << setw(30) << "Days of servicer" << "| " << setw(2) << order[i].stay_Time << setw(46) << "days" << "|" << endl;
-		cout << setw(30) << "Order status" << "| " << setw(10) << setw(48) << order[i].status_Order << "|" << endl;
-		cout << setw(30) << "Order type" << "| " << setw(10) << setw(48) << order[i].type_Order << "|" << endl;
-		cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
-		cout << "\n";
-	}
+	sort_arrayByDay(returned_order_arr_technician, countReturned_orders);
+
 }
 
 void sort_descendingOrder(Order order[], int& sizeOfOrder) {
@@ -224,6 +210,11 @@ void sort_descendingOrder(Order order[], int& sizeOfOrder) {
 			}
 		}
 	}
+	cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
+	for (int i = 0; i < sizeOfOrder; i++)
+	{
+		table(order, i);
+	}
 }
 void Separating_returned_orders_by_problem(Order order[], Order returned_order_arr_byProblem[], int& sizeOfOrder) {
 	int countReturned_orders = 0;
@@ -239,24 +230,6 @@ void Separating_returned_orders_by_problem(Order order[], Order returned_order_a
 		}
 	}
 	sort_descendingOrder(returned_order_arr_byProblem, countReturned_orders);
-	for (int i = 0; i < countReturned_orders; i++)
-	{
-		cout << left << setw(30) << "Order number" << "| " << setw(48) << order[i].orderNumber << "|" << endl;
-		cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
-		cout << setw(30) << "Day of mounth" << "| " << setw(48) << order[i].dayOfMounth << "|" << endl;
-		cout << setw(30) << "Client name" << "| " << setw(48) << order[i].clientName << "|" << endl;
-		cout << setw(30) << "Type of device" << "| " << setw(48) << order[i].type_Device << "|" << endl;
-		cout << setw(30) << "Serial number of device" << "| " << setw(48) << order[i].serialNumberOfDevice << "|" << endl;
-		cout << setw(30) << "Problem with a device" << "| " << setw(48) << order[i].possibleProblem << "|" << endl;
-		cout << setw(30) << "Name of service technician" << "| " << setw(48) << order[i].service_Technician_Name << "|" << endl;
-		cout << setw(30) << "Repair" << "| " << setw(48) << order[i].repair << "|" << endl;
-		cout << setw(30) << "Price of repair" << "| " << setw(2) << order[i].price << setw(46) << " lv" << "|" << endl;
-		cout << setw(30) << "Days of servicer" << "| " << setw(2) << order[i].stay_Time << setw(46) << "days" << "|" << endl;
-		cout << setw(30) << "Order status" << "| " << setw(10) << setw(48) << order[i].status_Order << "|" << endl;
-		cout << setw(30) << "Order type" << "| " << setw(10) << setw(48) << order[i].type_Order << "|" << endl;
-		cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
-		cout << "\n";
-	}
 }
 void updateOrder(Order order[], int& sizeOfOrder) {
 	int choice_repair;
