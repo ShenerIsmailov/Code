@@ -142,11 +142,11 @@ void search_DisplayBy_status(Order order[], const int& sizeOfОrder) {
 	cout << "Enter status: ";
 	cin.ignore();
 	getline(cin, status);
+	cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
 	for (int i = 0; i < sizeOfОrder; i++)
 	{
 		if (order[i].status_Order == status)
 		{
-			cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
 			table(order, i);
 		}
 	}
@@ -207,9 +207,11 @@ void sort_descendingOrder(Order returned_order_arr_byProblem[], int& sizeOfOrder
 		if (flag == false)break; else flag = false;
 		for (int j = sizeOfOrder - 1; j > i; j--)
 		{
-			if (returned_order_arr_byProblem[j].dayOfMounth > returned_order_arr_byProblem[j + 1].dayOfMounth)
+			int higher = atoi(returned_order_arr_byProblem[j].type_Device);
+			int lower = atoi(returned_order_arr_byProblem[j + 1].type_Device);
+			if (higher > lower)
 			{
-				swap(returned_order_arr_byProblem[j], returned_order_arr_byProblem[j + 1]);
+				swap(higher, lower);
 				flag = true;
 			}
 		}
