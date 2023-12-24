@@ -61,7 +61,7 @@ void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder, const stri
 			cout << "Problem that you might have with a device\n";
 			for (int j = 0; j < countOfProblems_Repairs; j++)
 			{
-				cout << j + 1 << ". " << problems[j] << endl;
+				cout << j + 1 << "." << problems[j] << endl;
 			}
 			cout << "Choice problem: "; cin >> choice;
 			Choice(choice);
@@ -167,6 +167,8 @@ void swap(int& a, int& b) {
 	b = buff;
 }
 void Choice(int& choice) {
+	cout << "Enter choice: ";
+	cin >> choice;
 	while ((choice - 1) <= 0 && (choice - 1) >= 9)
 	{
 		cout << "Please enter number between 1 and 10: ";
@@ -174,9 +176,7 @@ void Choice(int& choice) {
 	}
 }
 void updateOrder(Order order[], int& sizeOfOrder) {
-	int choice_Problem;
-	int choice_Repair;
-	int choice_order;
+	int choice;
 	int numberOrder = 0;
 	cout << "Enter number of order to update: "; cin >> numberOrder;
 	if (order[numberOrder].orderNumber = numberOrder)
@@ -190,18 +190,17 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 			cout << "Solutions:\n";
 			for (int i = 0; i < countOfProblems_Repairs; i++)
 			{
-				cout << i + 1 << ":" << solutions[i] << endl;
+				cout << i + 1 << "." << solutions[i] << endl;
 			}
-			cout << "Enter choice: "; cin >> choice_Repair;
-			Choice(choice_Repair);
+			Choice(choice);
 			for (int i = 0; i < count_TypeOfOrder; i++)
 			{
-				cout<< i + 1 << ":" << typeOfOrders[i] << endl;
-			}cout << "Enter choice: "; cin >> choice_Repair;
-			Choice(choice_order);
-			if (choice_Problem == 1)
+				cout<< i + 1 << "." << typeOfOrders[i] << endl;
+			}
+			Choice(choice);
+			if (choice == 1)
 			{
-				strcpy_s(order[numberOrder - 1].repair, solutions[choice_Repair - 1].c_str());
+				strcpy_s(order[numberOrder - 1].repair, solutions[choice - 1].c_str());
 			}
 			
 			fstream file;
