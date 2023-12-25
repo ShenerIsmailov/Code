@@ -5,18 +5,18 @@
 using namespace std;
 
 //Константи
-const int SizeOfArray_Struct = 100;
-const int countOfProblems_Repairs = 10;
-const int count_TypeOfOrder = 3;
-const float priceOfRepairs[countOfProblems_Repairs] = { 20,17,25,30,10,60,10,32,50,15 };
+const int MAX_ORDERS = 100;
+const int MAX_PROBLEM_REPAIRS = 10;
+const int MAX_TYPE_ORDER = 3;
+const float price_Repairs[MAX_PROBLEM_REPAIRS] = { 20,17,25,30,10,60,10,32,50,15 };
 const int service_days[] = { 2,5,10 };
-const string problems[countOfProblems_Repairs] = { "Dusty device", "Black screen on device when start","High tempreture while device is on load",
+const string problems[MAX_PROBLEM_REPAIRS] = { "Dusty device", "Black screen on device when start","High tempreture while device is on load",
 				"Slow startup", "Viruses in device","Broken screen", "The device doesn't charge",
 				"Low battery life","Blue screen errors","Noisy hard drive" };
-const string solutions[countOfProblems_Repairs] = { "Cleaning device","Installing lastes graphics drivers","Replacing thermal paste","Reinstall operating system",
+const string solutions[MAX_PROBLEM_REPAIRS] = { "Cleaning device","Installing lastes graphics drivers","Replacing thermal paste","Reinstall operating system",
 				"Cleaning malwares","Replacing screen","Cleaning charging port","Replacing battery",
 				"Windows repair","Mounted new hard drive" };
-const string typeOfOrders[count_TypeOfOrder] = { "express","fast","normal" };
+const string typeOfOrders[MAX_TYPE_ORDER] = { "express","fast","normal" };
 
 //Структура
 struct Order {
@@ -36,13 +36,14 @@ struct Order {
 
 //Функции
 //Функция за проверка дали броят поръчки, които искаме да въведем е по-голям от броя празните елементи в масива
-bool isFill(const int& SizeOfArray_Struct, int& n, int& sum) {
-	if (sum > SizeOfArray_Struct)
+bool isFill(int& n, int& sum) {
+	if (sum > MAX_ORDERS)
 	{
 		return false;
 	}
 	return true;
 }
+//Фунцкия за проверка 
 void Choice(int& choice) {
 	cout << "Enter choice: ";
 	cin >> choice;
@@ -53,11 +54,11 @@ void Choice(int& choice) {
 	}
 }
 //функция за въвеждане на поръчки в масив
-void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder, const string problems[]) {
+void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder) {
 	int choice;
 	cout << "Enter order count: ";	cin >> n;
 	sum += n;
-	if (isFill(SizeOfArray_Struct, n, sum))
+	if (isFill(n, sum))
 	{
 		for (int i = sizeOfOrder; i < sizeOfOrder + n; i++)
 		{
@@ -69,7 +70,7 @@ void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder, const stri
 			cout << "Enter type of device: "; cin.getline(order[i].type_Device, sizeof(order[i].type_Device));
 			cout << "Enter a serial number of device: "; cin.getline(order[i].serialNumberOfDevice, sizeof(order[i].serialNumberOfDevice));
 			cout << "Problem that you might have with a device:\n";
-			for (int j = 0; j < countOfProblems_Repairs; j++)
+			for (int j = 0; j < MAX_PROBLEM_REPAIRS; j++)
 			{
 				cout << j + 1 << "." << problems[j] << endl;
 			}
@@ -91,6 +92,7 @@ void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder, const stri
 	sizeOfOrder += n;
 }
 
+//Таблица за извеждане на данни
 void table(Order order[], int& i) {
 	cout << left << setw(30) << "Order number" << "| " << setw(48) << order[i].orderNumber << "|" << endl;
 	cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
@@ -136,7 +138,7 @@ void search_DisplayByType_Device(Order order[], const int& sizeOfОrder) {
 		}
 	}
 }
-
+//Функция за търсене и извеждане на устройства по статус
 void search_DisplayBy_status(Order order[], const int& sizeOfОrder) {
 	string status = " ";
 	cout << "Enter status: ";
@@ -151,7 +153,7 @@ void search_DisplayBy_status(Order order[], const int& sizeOfОrder) {
 		}
 	}
 }
-//Функция за сортиране във възходящ ред
+//Функция за сортиране във възходящ ред и извеждане
 void sort_arrayByDay(Order order[], const int& sizeOfOrder) {
 	bool flag = true;
 	for (int i = sizeOfOrder; i > 1; i--)
@@ -179,7 +181,7 @@ void swap(int& a, int& b) {
 	a = b;
 	b = buff;
 }
-
+//Функция за отделяне на завършени поръчки по техник
 void Separating_returned_orders_by_technician(Order order[], Order returned_order_arr_technician[], int& sizeOfOrder) {
 	int countReturned_orders = 0;
 	char technician_name[20] = " ";
@@ -199,7 +201,7 @@ void Separating_returned_orders_by_technician(Order order[], Order returned_orde
 	sort_arrayByDay(returned_order_arr_technician, countReturned_orders);
 
 }
-
+//Функция за сортиране в низходящ ред 
 void sort_descendingOrder(Order order[], int& sizeOfOrder) {
 	bool flag = true;
 	for (int i = 0; i < sizeOfOrder; i++)
@@ -217,7 +219,8 @@ void sort_descendingOrder(Order order[], int& sizeOfOrder) {
 		}
 	}
 }
-void Separating_returned_orders_by_problem(Order order[], Order returned_order_arr_byProblem[], int& sizeOfOrder) {
+//Функция за отделяне на завършени поръчки по устройство
+void Separating_returned_orders_by_device(Order order[], Order returned_order_arr_byProblem[], int& sizeOfOrder) {
 	int countReturned_orders = 0;
 	char device[20] = " ";
 	cin.ignore();cout << "Enter device name: ";
@@ -237,6 +240,7 @@ void Separating_returned_orders_by_problem(Order order[], Order returned_order_a
 		table(returned_order_arr_byProblem, i);
 	}
 }
+//Функция за актуализация на поръчка
 void updateOrder(Order order[], int& sizeOfOrder) {
 	int choice_repair;
 	int choice;
@@ -254,13 +258,13 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 			cin.ignore();
 			cin.getline(order[numberOrder - 1].service_Technician_Name, sizeof(order[numberOrder - 1].service_Technician_Name));
 			cout << "Solutions:\n";
-			for (int i = 0; i < countOfProblems_Repairs; i++)
+			for (int i = 0; i < MAX_PROBLEM_REPAIRS; i++)
 			{
 				cout << i + 1 << "." << solutions[i] << endl;
 			}
 			Choice(choice_repair);
 			strcpy_s(order[numberOrder - 1].repair, solutions[choice_repair - 1].c_str());
-			for (int i = 0; i < count_TypeOfOrder; i++)
+			for (int i = 0; i < MAX_TYPE_ORDER; i++)
 			{
 				cout << i + 1 << "." << typeOfOrders[i] << endl;
 			}
@@ -274,13 +278,13 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 			strcpy_s(order[numberOrder - 1].type_Order, typeOfOrders[choice - 1].c_str());
 			if (choice == 1)
 			{
-				order[numberOrder - 1].price = priceOfRepairs[choice_repair - 1] + (priceOfRepairs[choice_repair - 1] * 0.5);
+				order[numberOrder - 1].price = price_Repairs[choice_repair - 1] + (price_Repairs[choice_repair - 1] * 0.5);
 			}
 			else if (choice == 2) {
-				order[numberOrder - 1].price = priceOfRepairs[choice_repair - 1] + (priceOfRepairs[choice_repair - 1] * 0.2);
+				order[numberOrder - 1].price = price_Repairs[choice_repair - 1] + (price_Repairs[choice_repair - 1] * 0.2);
 			}
 			else {
-				order[numberOrder - 1].price = priceOfRepairs[choice_repair - 1];
+				order[numberOrder - 1].price = price_Repairs[choice_repair - 1];
 			}
 			order[numberOrder - 1].stay_Time = service_days[choice - 1];
 			strcpy_s(order[numberOrder - 1].status_Order, "returned");
@@ -296,6 +300,7 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 	}
 	else cout << "Order could't be found !\n";
 }
+//Функция за запис на данни
 void writeBinaryFile(Order order[], int& sizeOfOrder) {
 	fstream file;
 	file.open("file.dat", ios::binary | ios::out);
@@ -307,6 +312,7 @@ void writeBinaryFile(Order order[], int& sizeOfOrder) {
 	}
 	else cout << "File could't be found !\n";
 }
+//Функция за прочитане на данни
 void readBinaryFile(Order order[], int& sizeOfOrder) {
 	fstream file;
 	file.open("file.dat", ios::binary | ios::in);
@@ -327,7 +333,7 @@ void readBinaryFile(Order order[], int& sizeOfOrder) {
 
 int main()
 {
-	Order order[SizeOfArray_Struct];
+	Order order[MAX_ORDERS];
 	int choice = 0;
 	int sum = 0;
 	int n = 0;
@@ -351,7 +357,7 @@ int main()
 			switch (choice)
 			{
 			case 1:
-				preorderInput(order, n, sum, sizeOfOrder, problems);
+				preorderInput(order, n, sum, sizeOfOrder);
 				system("pause");
 				system("cls");
 				break;
@@ -393,21 +399,15 @@ int main()
 					system("cls");
 					break;
 				case 'b':
-					Order returned_order_arr_technician[SizeOfArray_Struct];
+					Order returned_order_arr_technician[MAX_ORDERS];
 					Separating_returned_orders_by_technician(order, returned_order_arr_technician, sizeOfOrder);
 					system("pause");
 					system("cls");
-					//предавам и двата масива
-					//създаване на масив 
-					//въвеждане на име на техник
-					//търсене
-					//сортиране
-					//извеждане на всички намерени
 					//запазване в текстов файл
 					break;
 				case 'c':
-					Order returned_order_arr_byProblem[SizeOfArray_Struct];
-					Separating_returned_orders_by_problem(order, returned_order_arr_byProblem, sizeOfOrder);
+					Order returned_order_arr_byProblem[MAX_ORDERS];
+					Separating_returned_orders_by_device(order, returned_order_arr_byProblem, sizeOfOrder);
 					system("pause");
 					system("cls");
 					break;
