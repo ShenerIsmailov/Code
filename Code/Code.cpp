@@ -13,7 +13,7 @@ const int service_days[] = { 2,5,10 };
 const string problems[MAX_PROBLEM_REPAIRS] = { "Dusty device", "Black screen on device when start","High tempreture while device is on load",
 				"Slow startup", "Viruses in device","Broken screen", "The device doesn't charge",
 				"Low battery life","Blue screen errors","Noisy hard drive" };
-const string solutions[MAX_PROBLEM_REPAIRS] = { "Cleaning device","Installing lastes graphics drivers","Replacing thermal paste","Reinstall operating system",
+const string repairs[MAX_PROBLEM_REPAIRS] = { "Cleaning device","Installing lastes graphics drivers","Replacing thermal paste","Reinstall operating system",
 				"Cleaning malwares","Replacing screen","Cleaning charging port","Replacing battery",
 				"Windows repair","Mounted new hard drive" };
 const string typeOfOrders[MAX_TYPE_ORDER] = { "express","fast","normal" };
@@ -260,10 +260,10 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 			cout << "Solutions:\n";
 			for (int i = 0; i < MAX_PROBLEM_REPAIRS; i++)
 			{
-				cout << i + 1 << "." << solutions[i] << endl;
+				cout << i + 1 << "." << repairs[i] << endl;
 			}
 			Choice(choice_repair);
-			strcpy_s(order[numberOrder - 1].repair, solutions[choice_repair - 1].c_str());
+			strcpy_s(order[numberOrder - 1].repair, repairs[choice_repair - 1].c_str());
 			for (int i = 0; i < MAX_TYPE_ORDER; i++)
 			{
 				cout << i + 1 << "." << typeOfOrders[i] << endl;
@@ -278,10 +278,10 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 			strcpy_s(order[numberOrder - 1].type_Order, typeOfOrders[choice - 1].c_str());
 			if (choice == 1)
 			{
-				order[numberOrder - 1].price = price_Repairs[choice_repair - 1] + (price_Repairs[choice_repair - 1] * 0.5);
+				order[numberOrder - 1].price = price_Repairs[choice_repair - 1] + (price_Repairs[choice_repair - 1] * 0.5f);
 			}
 			else if (choice == 2) {
-				order[numberOrder - 1].price = price_Repairs[choice_repair - 1] + (price_Repairs[choice_repair - 1] * 0.2);
+				order[numberOrder - 1].price = price_Repairs[choice_repair - 1] + (price_Repairs[choice_repair - 1] * 0.2f);
 			}
 			else {
 				order[numberOrder - 1].price = price_Repairs[choice_repair - 1];
@@ -442,4 +442,5 @@ int main()
 			cout << '-' << setfill('-') << setw(40) << '-' << setfill(' ') << endl;
 		}
 	} while (choice != 7);
+	return 0;
 }
