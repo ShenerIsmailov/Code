@@ -153,6 +153,13 @@ void search_DisplayBy_status(Order order[], const int& sizeOfОrder) {
 		}
 	}
 }
+//Функция за преместване на дании от една променлива в друга
+void swap(int& a, int& b) {
+	int buff = 0;
+	buff = a;
+	a = b;
+	b = buff;
+}
 //Функция за сортиране във възходящ ред и извеждане
 void sort_arrayByDay(Order order[], const int& sizeOfOrder) {
 	bool flag = true;
@@ -173,13 +180,6 @@ void sort_arrayByDay(Order order[], const int& sizeOfOrder) {
 	{
 		table(order, i);
 	}
-}
-//Функция за преместване на дании от една променлива в друга
-void swap(int& a, int& b) {
-	int buff = 0;
-	buff = a;
-	a = b;
-	b = buff;
 }
 //Функция за отделяне на завършени поръчки по техник
 void Separating_returned_orders_by_technician(Order order[], Order returned_order_arr_technician[], int& sizeOfOrder) {
