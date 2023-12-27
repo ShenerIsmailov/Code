@@ -371,6 +371,9 @@ int main()
 					<< "b.Search and display devices by status" << endl
 					<< "Enter option: ";
 				cin >> option;
+				while (option != 'a' && option != 'b') {
+					cout << "Please enter valid option: "; cin >> option;
+				}
 				switch (option)
 				{
 				case'a':
@@ -391,6 +394,9 @@ int main()
 					<< "c.Separate orders with a specific problem for a device and sort in descending order by device type." << endl
 					<< "Enter option: ";
 				cin >> option;
+				while (option != 'a' && option != 'b' && option != 'c') {
+					cout << "Please enter valid option: "; cin >> option;
+				}
 				switch (option)
 				{
 				case 'a':
@@ -418,6 +424,9 @@ int main()
 					<< "b.Entering the order array from a file." << endl
 					<< "Enter option: ";
 				cin >> option;
+				while (option != 'a' && option != 'b') {
+					cout << "Please enter valid option: "; cin >> option;
+				}
 				switch (option)
 				{
 				case 'a':
