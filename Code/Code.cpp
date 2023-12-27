@@ -411,7 +411,6 @@ int main()
 					Separating_returned_orders_by_technician(order, returned_order_arr_technician, sizeOfOrder);
 					system("pause");
 					system("cls");
-					//запазване в текстов файл
 					break;
 				case 'c':
 					Order returned_order_arr_byProblem[MAX_ORDERS];
