@@ -151,6 +151,7 @@ void search_DisplayBy_status(Order order[], const int& sizeOfОrder) {
 		{
 			table(order, i);
 		}
+		else cout << "No orders found with this status !\n";
 	}
 }
 //Функция за преместване на дании от една променлива в друга
@@ -195,10 +196,11 @@ void Separating_returned_orders_by_technician(Order order[], Order returned_orde
 			{
 				returned_order_arr_technician[i] = order[i];
 				countReturned_orders++;
+				sort_arrayByDay(returned_order_arr_technician, countReturned_orders);
 			}
+			else cout << "No orders found with this technician !\n";
 		}
 	}
-	sort_arrayByDay(returned_order_arr_technician, countReturned_orders);
 
 }
 //Функция за сортиране в низходящ ред 
