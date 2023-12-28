@@ -350,7 +350,7 @@ int main()
 	do
 	{	//меню
 		cout << "1.Add a new service order" << endl
-			<< "2.Display all devices on screen" << endl
+			<< "2.Display all orders on screen" << endl
 			<< "3.Search and Display" << endl
 			<< "4.Sort and display orders" << endl
 			<< "5.Working with an external file" << endl
