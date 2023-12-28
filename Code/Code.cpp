@@ -62,7 +62,6 @@ void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder) {
 	{
 		for (int i = sizeOfOrder; i < sizeOfOrder + n; i++)
 		{
-			cout << "Order " << i + 1 << endl;
 			cout << "Order number: "; cin >> order[i].orderNumber;
 			cout << "Enter day of mounth: "; cin >> order[i].dayOfMounth;
 			cin.ignore();
