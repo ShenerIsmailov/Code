@@ -95,16 +95,16 @@ void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder) {
 void table(Order order[], int& i) {
 	cout << left << setw(30) << "Order number" << "| " << setw(48) << order[i].orderNumber << "|" << endl;
 	cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
-	cout << setw(30) << "Day of mounth" << "| " << setw(48) << order[i].dayOfMounth << right << "|" << endl;
-	cout << left << setw(30) << "Client name" << "| " << setw(48) << order[i].clientName << "|" << endl;
+	cout << setw(30) << "Day of mounth" << "| " << setw(48) << order[i].dayOfMounth << "|" << endl;
+	cout << setw(30) << "Client name" << "| " << setw(48) << order[i].clientName << "|" << endl;
 	cout << setw(30) << "Type of device" << "| " << setw(48) << order[i].type_Device << "|" << endl;
 	cout << setw(30) << "Serial number of device" << "| " << setw(48) << order[i].serialNumberOfDevice << "|" << endl;
 	cout << setw(30) << "Problem with a device" << "| " << setw(48) << order[i].possibleProblem << "|" << endl;
 	cout << setw(30) << "Name of service technician" << "| " << setw(48) << order[i].service_Technician_Name << "|" << endl;
 	cout << setw(30) << "Repair" << "| " << setw(48) << order[i].repair << "|" << endl;
-	cout << setw(30) << "Price of repair" << "| " << setw(2) << fixed << setprecision(2) << order[i].price  << setw(43) << " lv" << right << "|" << endl;
-	cout << left << setw(30) << "Days of servicer" << "| " << setw(2) << order[i].stay_Time << setw(46) << "days" << right << "|" << endl;
-	cout << left << setw(30) << "Order status" << "| " << setw(10)  << setw(48)  << order[i].status_Order << "|" << endl;
+	cout << setw(30) << "Price of repair" << "| " << setw(5) << fixed << setprecision(2) << order[i].price << setw(43) << " lv" << "|" << endl;
+	cout << setw(30) << "Days of servicer" << "| " << setw(2) << order[i].stay_Time << setw(46) << "days" << "|" << endl;
+	cout << setw(30) << "Order status" << "| " << setw(10) << setw(48) << order[i].status_Order << "|" << endl;
 	cout << setw(30) << "Order type" << "| " << setw(10) << setw(48) << order[i].type_Order << "|" << endl;
 	cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
 
@@ -244,62 +244,68 @@ void Separating_returned_orders_by_device(Order order[], Order returned_order_ar
 //Функция за актуализация на поръчка
 void updateOrder(Order order[], int& sizeOfOrder) {
 	int choice_repair;
-	int choice;
-	int numberOrder = 0;
+	int choice = 0;
+	int numberOrder;
 	cout << "Enter number of order to update: "; cin >> numberOrder;
-	if (order[numberOrder].orderNumber = numberOrder)
+	for (int i = 0; i < sizeOfOrder; i++)
 	{
-		if (strcmp(order[numberOrder - 1].status_Order, "returned") == 0)
+		if (order[i].orderNumber == numberOrder)
 		{
-			cout << "You couldn't update order !\n";
-		}
-		else
-		{
-			cout << "Enter technician name: ";
-			cin.ignore();
-			cin.getline(order[numberOrder - 1].service_Technician_Name, sizeof(order[numberOrder - 1].service_Technician_Name));
-			cout << "Solutions:\n";
-			for (int i = 0; i < MAX_PROBLEM_REPAIRS; i++)
+			if (strcmp(order[i].status_Order, "returned") == 0)
 			{
-				cout << i + 1 << "." << repairs[i] << endl;
+				cout << "You couldn't update order !\n";
 			}
-			Choice(choice_repair);
-			strcpy_s(order[numberOrder - 1].repair, repairs[choice_repair - 1].c_str());
-			for (int i = 0; i < MAX_TYPE_ORDER; i++)
+			else
 			{
-				cout << i + 1 << "." << typeOfOrders[i] << endl;
-			}
-			cout << "Enter choice: ";
-			cin >> choice;
-			while ((choice - 1) < 0 || (choice - 1) > 3)
-			{
-				cout << "Please enter number between 1 and 3: ";
+				cout << "Enter technician name: ";
+				cin.ignore();
+				cin.getline(order[i].service_Technician_Name, sizeof(order[i].service_Technician_Name));
+				cout << "Solutions:\n";
+				for (int i = 0; i < MAX_PROBLEM_REPAIRS; i++)
+				{
+					cout << i + 1 << "." << repairs[i] << endl;
+				}
+				Choice(choice_repair);
+				strcpy_s(order[i].repair, repairs[choice_repair - 1].c_str());
+				for (int i = 0; i < MAX_TYPE_ORDER; i++)
+				{
+					cout << i + 1 << "." << typeOfOrders[i] << endl;
+				}
+				cout << "Enter choice: ";
 				cin >> choice;
+				while ((choice - 1) < 0 || (choice - 1) > 3)
+				{
+					cout << "Please enter number between 1 and 3: ";
+					cin >> choice;
+				}
+				strcpy_s(order[i].type_Order, typeOfOrders[choice - 1].c_str());
+				if (choice == 1)
+				{
+					order[i].price = price_Repairs[choice_repair - 1] + (price_Repairs[choice_repair - 1] * 0.5f);
+				}
+				else if (choice == 2) {
+					order[i].price = price_Repairs[choice_repair - 1] + (price_Repairs[choice_repair - 1] * 0.2f);
+				}
+				else {
+					order[i].price = price_Repairs[choice_repair - 1];
+				}
+				order[i].stay_Time = service_days[choice - 1];
+				strcpy_s(order[i].status_Order, "returned");
+				fstream file;
+				file.open("file.dat", ios::binary | ios::out);
+				if (file.is_open())
+				{
+					file.write(reinterpret_cast<char*>(order), numberOrder * sizeof(Order));
+					file.close();
+				}
+				else cout << "File could't be found !";
 			}
-			strcpy_s(order[numberOrder - 1].type_Order, typeOfOrders[choice - 1].c_str());
-			if (choice == 1)
-			{
-				order[numberOrder - 1].price = price_Repairs[choice_repair - 1] + (price_Repairs[choice_repair - 1] * 0.5f);
-			}
-			else if (choice == 2) {
-				order[numberOrder - 1].price = price_Repairs[choice_repair - 1] + (price_Repairs[choice_repair - 1] * 0.2f);
-			}
-			else {
-				order[numberOrder - 1].price = price_Repairs[choice_repair - 1];
-			}
-			order[numberOrder - 1].stay_Time = service_days[choice - 1];
-			strcpy_s(order[numberOrder - 1].status_Order, "returned");
-			fstream file;
-			file.open("file.dat", ios::binary | ios::out);
-			if (file.is_open())
-			{
-				file.write(reinterpret_cast<char*>(order), numberOrder * sizeof(Order));
-				file.close();
-			}
-			else cout << "File could't be found !";
 		}
 	}
-	else cout << "Order could't be found !\n";
+	if (choice == 0)
+	{
+		cout << "Order couldn't found !\n";
+	}
 }
 //Функция за запис на данни
 void writeBinaryFile(Order order[], int& sizeOfOrder) {
@@ -351,7 +357,7 @@ int main()
 			<< "7.Exit" << endl;
 		cout << '-' << setfill('-') << setw(38) << '-' << setfill(' ') << endl
 			<< "Enter choice: ";
-		cin >> choice;
+			cin >> choice;
 		//валидация
 		if (choice >= 1 && choice <= 7) {
 			char option = ' ';
@@ -365,6 +371,7 @@ int main()
 			case 2:
 				printAllOrders(order, sizeOfOrder);
 				system("pause");
+
 				system("cls");
 				break;
 			case 3:
