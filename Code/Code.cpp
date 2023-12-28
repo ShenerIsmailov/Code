@@ -95,16 +95,16 @@ void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder) {
 void table(Order order[], int& i) {
 	cout << left << setw(30) << "Order number" << "| " << setw(48) << order[i].orderNumber << "|" << endl;
 	cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
-	cout << setw(30) << "Day of mounth" << "| " << setw(48) << order[i].dayOfMounth << "|" << endl;
-	cout << setw(30) << "Client name" << "| " << setw(48) << order[i].clientName << "|" << endl;
+	cout << setw(30) << "Day of mounth" << "| " << setw(48) << order[i].dayOfMounth << right << "|" << endl;
+	cout << left << setw(30) << "Client name" << "| " << setw(48) << order[i].clientName << "|" << endl;
 	cout << setw(30) << "Type of device" << "| " << setw(48) << order[i].type_Device << "|" << endl;
 	cout << setw(30) << "Serial number of device" << "| " << setw(48) << order[i].serialNumberOfDevice << "|" << endl;
 	cout << setw(30) << "Problem with a device" << "| " << setw(48) << order[i].possibleProblem << "|" << endl;
 	cout << setw(30) << "Name of service technician" << "| " << setw(48) << order[i].service_Technician_Name << "|" << endl;
 	cout << setw(30) << "Repair" << "| " << setw(48) << order[i].repair << "|" << endl;
-	cout << setw(30) << "Price of repair" << "| " << setw(2) << fixed << setprecision(2) << order[i].price << setw(43) << " lv" << "|" << endl;
-	cout << setw(30) << "Days of servicer" << "| " << setw(2) << order[i].stay_Time << setw(46) << "days" << "|" << endl;
-	cout << setw(30) << "Order status" << "| " << setw(10)  << setw(48)  << order[i].status_Order << "|" << endl;
+	cout << setw(30) << "Price of repair" << "| " << setw(2) << fixed << setprecision(2) << order[i].price  << setw(43) << " lv" << right << "|" << endl;
+	cout << left << setw(30) << "Days of servicer" << "| " << setw(2) << order[i].stay_Time << setw(46) << "days" << right << "|" << endl;
+	cout << left << setw(30) << "Order status" << "| " << setw(10)  << setw(48)  << order[i].status_Order << "|" << endl;
 	cout << setw(30) << "Order type" << "| " << setw(10) << setw(48) << order[i].type_Order << "|" << endl;
 	cout << '-' << setfill('-') << setw(80) << '-' << setfill(' ') << endl;
 
