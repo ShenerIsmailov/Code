@@ -254,6 +254,7 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 			if (strcmp(order[i].status_Order, "returned") == 0)
 			{
 				cout << "You couldn't update order !\n";
+				choice = 1;
 			}
 			else
 			{
