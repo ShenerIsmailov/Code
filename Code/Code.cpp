@@ -432,16 +432,22 @@ int main()
 				{
 				case 'a':
 					writeBinaryFile(order, sizeOfOrder);
+					system("pause");
+					system("cls");
 					break;
 				case 'b':
 					readBinaryFile(order, sizeOfOrder);
+					system("pause");
+					system("cls");
 					break;
 				}
 				break;
 			case 6:updateOrder(order, sizeOfOrder);
+				system("pause");
 				break;
 			case 7:
 				writeBinaryFile(order, sizeOfOrder);
+				system("pause");
 				exit(1);
 			}
 		}
