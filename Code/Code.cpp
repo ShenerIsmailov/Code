@@ -298,7 +298,7 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 					file.write(reinterpret_cast<char*>(order), numberOrder * sizeof(Order));
 					file.close();
 				}
-				else cout << "File could't be found !";
+				else cout << "File couldn't be found !";
 			}
 		}
 	}
@@ -317,7 +317,7 @@ void writeBinaryFile(Order order[], int& sizeOfOrder) {
 		file.close();
 		cout << "The data was recorded !\n";
 	}
-	else cout << "File could't be found !\n";
+	else cout << "File couldn't be found !\n";
 }
 //Функция за прочитане на данни
 void readBinaryFile(Order order[], int& sizeOfOrder) {
@@ -335,7 +335,7 @@ void readBinaryFile(Order order[], int& sizeOfOrder) {
 		file.close();
 		cout << "The data was readed !\n";
 	}
-	else cout << "File could't be found !\n";
+	else cout << "File couldn't be found !\n";
 }
 
 int main()
