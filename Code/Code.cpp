@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <iomanip>
 #include <string>
 #include <fstream>
@@ -57,7 +57,7 @@ void Choice(int& choice) {
 void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder) {
 	int choice;
 	cout << "Enter order count: ";	cin >> n;
-	sum += n;
+	sum = n + sizeOfOrder;
 	if (isFill(n, sum))
 	{
 		for (int i = sizeOfOrder; i < sizeOfOrder + n; i++)
@@ -86,7 +86,6 @@ void preorderInput(Order order[], int& n, int& sum, int& sizeOfOrder) {
 	else {
 		cout << "Enter valid count of orders!\n";
 		sum = 0;
-		sizeOfOrder = 0;
 	}
 	sizeOfOrder += n;
 }
@@ -185,7 +184,7 @@ void sort_arrayByDay(Order order[], const int& sizeOfOrder) {
 void Separating_returned_orders_by_technician(Order order[], Order returned_order_arr_technician[], int& sizeOfOrder) {
 	int countReturned_orders = 0;
 	char technician_name[20] = " ";
-	cin.ignore();cout << "Enter technician name: ";
+	cin.ignore(); cout << "Enter technician name: ";
 	cin.getline(technician_name, sizeof(technician_name));
 	for (int i = 0; i < sizeOfOrder; i++)
 	{
@@ -203,12 +202,12 @@ void Separating_returned_orders_by_technician(Order order[], Order returned_orde
 
 }
 //Функция за сортиране в низходящ ред 
-void sort_descendingOrder(Order order[], int& sizeOfOrder) {
+void sort_descendingOrder(Order order[], int& countReturned_orders) {
 	bool flag = true;
-	for (int i = 0; i < sizeOfOrder; i++)
+	for (int i = 0; i < countReturned_orders; i++)
 	{
 		if (flag == false)break; else flag = false;
-		for (int j = sizeOfOrder - 1; j > i; j--)
+		for (int j = countReturned_orders - 1; j > i; j--)
 		{
 			int higher = atoi(order[j].type_Device);
 			int lower = atoi(order[j + 1].type_Device);
@@ -224,13 +223,13 @@ void sort_descendingOrder(Order order[], int& sizeOfOrder) {
 void Separating_returned_orders_by_device(Order order[], Order returned_order_arr_byProblem[], int& sizeOfOrder) {
 	int countReturned_orders = 0;
 	char device[20] = " ";
-	cin.ignore();cout << "Enter device name: ";
+	cin.ignore(); cout << "Enter device name: ";
 	cin.getline(device, sizeof(device));
 	for (int i = 0; i < sizeOfOrder; i++)
 	{
 		if (strcmp(order[i].type_Device, device) == 0)
 		{
-			returned_order_arr_byProblem[i] = order[i];
+			returned_order_arr_byProblem[countReturned_orders] = order[i];
 			countReturned_orders++;
 		}
 	}
@@ -312,6 +311,8 @@ void updateOrder(Order order[], int& sizeOfOrder) {
 void writeBinaryFile(Order order[], int& sizeOfOrder) {
 	fstream file;
 	file.open("file.dat", ios::binary | ios::out);
+
+
 	if (file.is_open())
 	{
 		file.write(reinterpret_cast<char*>(order), sizeOfOrder * sizeof(Order));
@@ -358,7 +359,7 @@ int main()
 			<< "7.Exit" << endl;
 		cout << '-' << setfill('-') << setw(38) << '-' << setfill(' ') << endl
 			<< "Enter choice: ";
-			cin >> choice;
+		cin >> choice;
 		//валидация
 		if (choice >= 1 && choice <= 7) {
 			char option = ' ';
